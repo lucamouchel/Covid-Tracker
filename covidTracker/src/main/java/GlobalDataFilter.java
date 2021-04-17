@@ -78,4 +78,9 @@ public class GlobalDataFilter {
         this.globalDeaths = formattedData.get(1);
         this.globalRecovered = formattedData.get(2);
     }
+
+    @FXML
+    void quit(){
+        System.exit(0);
+    }
 }

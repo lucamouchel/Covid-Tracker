@@ -21,20 +21,19 @@
                 <Font name="Segoe UI Bold Italic" size="64.0" />
             </font>
         </Text>
-        <FontIcon iconLiteral="fa-globe" iconSize="100" layoutX="204.0" layoutY="768.0" selectionFill="#e41818" text="" wrappingWidth="77.0" />
-      <AnchorPane layoutX="669.0" layoutY="577.0" />
+        <FontIcon iconLiteral="fa-globe" iconSize="100" layoutX="206.0" layoutY="730.0" selectionFill="#e41818" text="" wrappingWidth="77.0" />
       <Text fill="WHITE" layoutX="319.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CORONAVIRUS CASES" wrappingWidth="256.919921875">
          <font>
             <Font name="Arial Bold" size="22.0" />
          </font>
       </Text>
-      <JFXDrawer defaultDrawerSize="50.0" layoutX="1113.0" layoutY="746.0" overLayVisible="false" prefHeight="40.0" prefWidth="56.0" />
+      <JFXDrawer defaultDrawerSize="50.0" layoutX="1083.0" layoutY="739.0" overLayVisible="false" prefHeight="40.0" prefWidth="114.0" />
       <Text layoutX="337.0" layoutY="651.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="CASES" textAlignment="CENTER" underline="true">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text layoutX="329.0" layoutY="700.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="DEATHS" textAlignment="CENTER" underline="true" wrappingWidth="56.0">
+      <Text layoutX="329.0" layoutY="699.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="DEATHS" textAlignment="CENTER" underline="true" wrappingWidth="56.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,5 +47,6 @@
       <Button fx:id="cases" layoutX="428.0" layoutY="633.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="cases" />
       <Button fx:id="deaths" layoutX="428.0" layoutY="682.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="deaths" />
       <Button fx:id="recovered" layoutX="428.0" layoutY="734.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="recovered" />
+      <Button layoutX="14.0" layoutY="759.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
     </children>
 </AnchorPane>
