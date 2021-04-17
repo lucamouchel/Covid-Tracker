@@ -2,39 +2,50 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GlobalDataFilter {
     @FXML
-    private Button cases;
-    @FXML
-    private Button deaths;
-    @FXML
-    private Button recovered;
+    private Button cases, deaths, recovered;
+    //as much as these values are ints,
+    //the numbers will be formatted as ###,###,###
+    private String globalCases;
+    private String globalDeaths;
+    private String globalRecovered;
 
-    private int globalCases;
-    private int globalDeaths;
-    private int globalRecovered;
-
-    /**
-     * Types of Strings we will be working with for GLOBAL DATA:
-     * {"cases":140476554,"deaths":3010657,"recovered":119302906}
-     */
-    public void globalDataHandler() throws IOException {
+    @FXML
+    public void refreshData() throws IOException {
         String globalData = DataProvider.getGlobalData();
-        globalData = filteredGlobalData(globalData);
-
+        filterData(globalData);
+        cases.setText(this.globalCases);
+        deaths.setText(this.globalDeaths);
+        recovered.setText(this.globalRecovered);
     }
 
     /**
-     * Returns a filtered string that contains only letters or integers
+     * Filters the data into only integers.
+     * These represent the number of cases, deaths and recovered.
+     * we will work with strings such as these to treat global data.
+     *
+     * @param globalData String to filter into ints
+     * @Link {"cases":140598859,"deaths":3014240,"recovered":119432902}
+     */
+    public void filterData(String globalData) {
+        globalData = dataWithFilteredChars(globalData);
+        defineAttributes(globalData);
+    }
+
+    /**
+     * Removing unnecessary characters so we can treat the data with
+     * only letters and integers.
      *
      * @param globalData string to filter
      * @return filtered string
      */
-    public String filteredGlobalData(String globalData) {
+    public String dataWithFilteredChars(String globalData) {
         StringBuilder filteredGlobalData = new StringBuilder();
         globalData.chars()
                 .filter(c -> Character.isDigit(c) || Character.isLetter(c))
@@ -44,26 +55,27 @@ public class GlobalDataFilter {
     }
 
     /**
-     * Returns a list of the total Global:
-     * cases, deaths and recovered in real time.
+     * Defines the attributes cases, deaths and recovered.
      *
-     * @param globalData String to filter into a List of ints
-     * @return List of ints that represent values mentioned above
+     * @param globalData string to extract attributes from
      */
-    public List<Integer> getIntegerData(String globalData) {
+    public void defineAttributes(String globalData) {
         for (char c : globalData.toCharArray()) {
             if (Character.isLetter(c)) {
                 globalData = globalData.replace(c, ' ');
             }
         }
-        List<String> data = Arrays.stream(globalData.split(" "))
+        //mapping the whole string into a list of integers
+        List<Integer> data = Arrays.stream(globalData.split(" "))
                 .filter(str -> !str.isEmpty())
+                .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
-        this.globalCases = Integer.parseInt(data.get(0));
-        this.globalDeaths = Integer.parseInt(data.get(1));
-        this.globalRecovered = Integer.parseInt(data.get(2));
-
-        return List.of(this.globalCases, this.globalDeaths, this.globalRecovered);
+        //using the ints from the previous list and formatting it
+        List<String> formattedData = new ArrayList<>();
+        data.forEach(i -> formattedData.add(String.format("%,d", i)));
+        this.globalCases = formattedData.get(0);
+        this.globalDeaths = formattedData.get(1);
+        this.globalRecovered = formattedData.get(2);
     }
 }
