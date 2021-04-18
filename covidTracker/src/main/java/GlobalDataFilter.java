@@ -1,7 +1,7 @@
-import com.jfoenix.controls.JFXDrawer;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.awt.*;
 import java.io.IOException;
@@ -14,13 +14,16 @@ import java.util.stream.Collectors;
 
 public class GlobalDataFilter {
     @FXML
-    private Button cases, deaths, recovered;
+    private Text cases, deaths, recovered;
+    @FXML
+    private FontIcon SEARCH;
     //as much as these values are ints,
     //the numbers will be formatted as ###,###,###
     private String globalCases;
     private String globalDeaths;
     private String globalRecovered;
-    private static final String LINK = "https://www.google.com/search?q=coronavirus+global+";
+    private final String COVID_NEWS = "www.google.com/search?q=coronavirus+news";
+    private final String GENERAL_COVID_INFO = "www.google.com/search?q=coronavirus+cases";
 
     @FXML
     public void refreshData() throws IOException {
@@ -34,10 +37,8 @@ public class GlobalDataFilter {
     /**
      * Filters the data into only integers.
      * These represent the number of cases, deaths and recovered.
-     * we will work with strings such as these to treat global data.
      *
-     * @param globalData String to filter into ints
-     * @Link {"cases":140598859,"deaths":3014240,"recovered":119432902}
+     * @param globalData String to filter
      */
     public void filterData(String globalData) {
         globalData = dataWithFilteredChars(globalData);
@@ -51,7 +52,7 @@ public class GlobalDataFilter {
      * @param globalData string to filter
      * @return filtered string
      */
-    public String dataWithFilteredChars(String globalData) {
+    public static String dataWithFilteredChars(String globalData) {
         StringBuilder filteredGlobalData = new StringBuilder();
         globalData.chars()
                 .filter(c -> Character.isDigit(c) || Character.isLetter(c))
@@ -85,14 +86,6 @@ public class GlobalDataFilter {
         this.globalRecovered = formattedData.get(2);
     }
 
-    @FXML
-    JFXDrawer drawer = new JFXDrawer();
-
-    public void closeStageAndOpenSelectionBox() {
-        Stage stage = (Stage) drawer.getScene().getWindow();
-        stage.close();
-    }
-
     private void openURL(String URL) {
         try {
             Desktop.getDesktop().browse(new URI(URL));
@@ -101,22 +94,21 @@ public class GlobalDataFilter {
         }
     }
 
-    public void openCasesInfo() {
-        openURL(LINK + "cases");
+    public void openNews() {
+        openURL(COVID_NEWS);
     }
 
-    public void openDeathsInfo() {
-        openURL(LINK + "deaths");
+    public void openGeneralInfo() {
+        openURL(GENERAL_COVID_INFO);
     }
 
-    public void openRecoveredInfo() {
-        openURL(LINK + "recovered");
+    public void openCountryPage() throws IOException {
+        Stage stage = (Stage) SEARCH.getScene().getWindow();
+        stage.close();
+        CountryDataFilter.openCountryDataPage();
     }
-
     @FXML
     void quit() {
         System.exit(0);
     }
-
-
 }

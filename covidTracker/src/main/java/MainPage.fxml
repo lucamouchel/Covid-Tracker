@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GlobalDataFilter">
     <children>
-        <ImageView fitHeight="800.0" fitWidth="1300.0" onMouseDragExited="#closeStageAndOpenSelectionBox">
+        <ImageView fitHeight="800.0" fitWidth="1300.0">
             <image>
                 <Image url="@../resources/background.jpg" />
             </image>
@@ -20,32 +20,51 @@
                 <Font name="Segoe UI Bold Italic" size="64.0" />
             </font>
         </Text>
-        <FontIcon iconLiteral="fa-globe" iconSize="100" layoutX="206.0" layoutY="730.0" selectionFill="#e41818" text="" wrappingWidth="77.0" />
-      <Text fill="WHITE" layoutX="319.0" layoutY="597.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CORONAVIRUS CASES" wrappingWidth="256.919921875">
+        <FontIcon iconColor="#0c8a38" iconLiteral="fa-globe" iconSize="100" layoutX="183.0" layoutY="381.0" selectionFill="#e41818" text="" wrappingWidth="77.0" />
+      <Text fill="WHITE" layoutX="173.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Covid-19-related news" wrappingWidth="234.919921875">
          <font>
             <Font name="Arial Bold" size="22.0" />
          </font>
       </Text>
-      <Text layoutX="337.0" layoutY="651.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="CASES" textAlignment="CENTER" underline="true">
+      <Text fill="WHITE" layoutX="401.0" layoutY="215.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="CASES:" textAlignment="CENTER" wrappingWidth="91.0">
          <font>
-            <Font size="14.0" />
+            <Font name="Segoe UI Black" size="24.0" />
          </font>
       </Text>
-      <Text layoutX="329.0" layoutY="699.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="DEATHS" textAlignment="CENTER" underline="true" wrappingWidth="56.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text layoutX="319.0" layoutY="751.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="RECOVERED" textAlignment="CENTER" underline="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Button layoutX="624.0" layoutY="660.0" mnemonicParsing="false" onAction="#refreshData" prefHeight="71.0" prefWidth="91.0" text="Refresh" />
-      <Button fx:id="cases" layoutX="428.0" layoutY="633.0" mnemonicParsing="false" onAction="#openCasesInfo" prefHeight="25.0" prefWidth="81.0" text="cases" />
-      <Button fx:id="deaths" layoutX="428.0" layoutY="682.0" mnemonicParsing="false" onAction="#openDeathsInfo" prefHeight="25.0" prefWidth="81.0" text="deaths" />
-      <Button fx:id="recovered" layoutX="428.0" layoutY="734.0" mnemonicParsing="false" onAction="#openRecoveredInfo" prefHeight="25.0" prefWidth="81.0" text="recovered" />
+      <Button layoutX="628.0" layoutY="310.0" mnemonicParsing="false" onAction="#refreshData" prefHeight="71.0" prefWidth="91.0" text="Refresh" />
+      <Button layoutX="173.0" layoutY="759.0" mnemonicParsing="false" onAction="#openNews" prefHeight="25.0" prefWidth="97.0" text="News" />
       <FontIcon iconColor="WHITE" iconLiteral="fa-times-circle" iconSize="50" layoutX="18.0" layoutY="774.0" onMousePressed="#quit" selectionFill="#f2f2f2" selectionStart="2" tabSize="10" text="" wrappingWidth="49.59999389648442" />
-      <FontIcon iconLiteral="fa-long-arrow-right" iconSize="50" layoutX="1191.0" layoutY="764.0" />
+      <Text fill="WHITE" layoutX="394.0" layoutY="336.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="DEATHS:" textAlignment="CENTER" wrappingWidth="106.48046875">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="371.0" layoutY="451.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="RECOVERED:" textAlignment="CENTER" wrappingWidth="150.48046875">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="cases" fill="#978c8c" layoutX="329.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="234.919921875">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="deaths" fill="#da6767" layoutX="356.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="182.48046875">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="recovered" fill="#18ab22" layoutX="339.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="215.48046875">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="278.0" layoutY="759.0" mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="25.0" prefWidth="123.0" text="General Information" />
+      <FontIcon fx:id="SEARCH" iconLiteral="fa-search" iconSize="30" layoutX="1152.0" layoutY="754.0" onMouseClicked="#openCountryPage" selectionEnd="1" />
+      <Text layoutX="976.0" layoutY="749.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search individual country">
+         <font>
+            <Font name="Segoe UI Black" size="13.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>
