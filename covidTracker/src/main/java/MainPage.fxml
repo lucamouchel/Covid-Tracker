@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GlobalDataFilter">
     <children>
-        <ImageView fitHeight="800.0" fitWidth="1300.0">
+        <ImageView fitHeight="800.0" fitWidth="1300.0" onMouseDragExited="#closeStageAndOpenSelectionBox">
             <image>
                 <Image url="@../resources/background.jpg" />
             </image>
@@ -27,7 +26,6 @@
             <Font name="Arial Bold" size="22.0" />
          </font>
       </Text>
-      <JFXDrawer defaultDrawerSize="50.0" layoutX="1083.0" layoutY="739.0" overLayVisible="false" prefHeight="40.0" prefWidth="114.0" />
       <Text layoutX="337.0" layoutY="651.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="CASES" textAlignment="CENTER" underline="true">
          <font>
             <Font size="14.0" />
@@ -44,9 +42,10 @@
          </font>
       </Text>
       <Button layoutX="624.0" layoutY="660.0" mnemonicParsing="false" onAction="#refreshData" prefHeight="71.0" prefWidth="91.0" text="Refresh" />
-      <Button fx:id="cases" layoutX="428.0" layoutY="633.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="cases" />
-      <Button fx:id="deaths" layoutX="428.0" layoutY="682.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="deaths" />
-      <Button fx:id="recovered" layoutX="428.0" layoutY="734.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="recovered" />
-      <Button layoutX="14.0" layoutY="759.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
+      <Button fx:id="cases" layoutX="428.0" layoutY="633.0" mnemonicParsing="false" onAction="#openCasesInfo" prefHeight="25.0" prefWidth="81.0" text="cases" />
+      <Button fx:id="deaths" layoutX="428.0" layoutY="682.0" mnemonicParsing="false" onAction="#openDeathsInfo" prefHeight="25.0" prefWidth="81.0" text="deaths" />
+      <Button fx:id="recovered" layoutX="428.0" layoutY="734.0" mnemonicParsing="false" onAction="#openRecoveredInfo" prefHeight="25.0" prefWidth="81.0" text="recovered" />
+      <FontIcon iconColor="WHITE" iconLiteral="fa-times-circle" iconSize="50" layoutX="18.0" layoutY="774.0" onMousePressed="#quit" selectionFill="#f2f2f2" selectionStart="2" tabSize="10" text="" wrappingWidth="49.59999389648442" />
+      <FontIcon iconLiteral="fa-long-arrow-right" iconSize="50" layoutX="1191.0" layoutY="764.0" />
     </children>
 </AnchorPane>

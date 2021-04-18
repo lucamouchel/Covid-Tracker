@@ -1,7 +1,12 @@
+import com.jfoenix.controls.JFXDrawer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +20,7 @@ public class GlobalDataFilter {
     private String globalCases;
     private String globalDeaths;
     private String globalRecovered;
+    private static final String LINK = "https://www.google.com/search?q=coronavirus+global+";
 
     @FXML
     public void refreshData() throws IOException {
@@ -80,7 +86,37 @@ public class GlobalDataFilter {
     }
 
     @FXML
-    void quit(){
+    JFXDrawer drawer = new JFXDrawer();
+
+    public void closeStageAndOpenSelectionBox() {
+        Stage stage = (Stage) drawer.getScene().getWindow();
+        stage.close();
+    }
+
+    private void openURL(String URL) {
+        try {
+            Desktop.getDesktop().browse(new URI(URL));
+        } catch (IOException | URISyntaxException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    public void openCasesInfo() {
+        openURL(LINK + "cases");
+    }
+
+    public void openDeathsInfo() {
+        openURL(LINK + "deaths");
+    }
+
+    public void openRecoveredInfo() {
+        openURL(LINK + "recovered");
+    }
+
+    @FXML
+    void quit() {
         System.exit(0);
     }
+
+
 }
