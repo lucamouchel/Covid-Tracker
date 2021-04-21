@@ -1,4 +1,3 @@
-import org.kordamp.ikonli.fontawesome.FontAwesome;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,6 +32,7 @@ public class DataProvider {
         countryDataList.add(countryData);
         return countryData;
     }
+
     /**
      * Removing unnecessary characters so we can treat the data with
      * only letters and integers.
@@ -68,6 +68,6 @@ public class DataProvider {
         //using the ints from the previous list and formatting it
         List<String> formattedData = new ArrayList<>();
         data.forEach(i -> formattedData.add(String.format("%,d", i)));
-        return  formattedData;
+        return formattedData;
     }
 }

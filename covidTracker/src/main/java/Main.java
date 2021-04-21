@@ -9,14 +9,15 @@ import java.util.Objects;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainPage.fxml")));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root, 900, 700));
         primaryStage.show();
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
 }

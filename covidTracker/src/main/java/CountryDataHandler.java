@@ -2,7 +2,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,7 +20,6 @@ public class CountryDataHandler {
     @FXML
     private Text cases, todaysCases, deaths, todaysDeaths, recovered,
             active, critical, casesPerMillion, deathsPerMillion, totalTests, testsPerMillion;
-
 
     static void openCountryDataPage() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(CountryDataHandler.class.getResource("CountryData.fxml")));
@@ -44,11 +42,12 @@ public class CountryDataHandler {
             IntStream.range(0, allTexts.size()).forEach(i -> allTexts.get(i).setText(attributes.get(i)));
         } catch (RuntimeException | IOException e) {
             if (toFilter.isEmpty())
-            noCountryInput.setText("no input");
+                noCountryInput.setText("no input");
             else noCountryInput.setText("Not a valid country");
         }
     }
-    public void quit(){
+
+    public void quit() {
         System.exit(0);
     }
 }

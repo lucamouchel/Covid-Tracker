@@ -10,18 +10,15 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public class GlobalDataHandler {
+    private final String COVID_NEWS = "www.google.com/search?q=coronavirus+news";
+    private final String GENERAL_COVID_INFO = "www.google.com/search?q=coronavirus+cases";
     @FXML
     private Text cases, deaths, recovered;
     @FXML
     private FontIcon SEARCH;
     //as much as these values are ints,
     //the numbers will be formatted as ###,###,###
-    private String globalCases;
-    private String globalDeaths;
-    private String globalRecovered;
-    private final String COVID_NEWS = "www.google.com/search?q=coronavirus+news";
-    private final String GENERAL_COVID_INFO = "www.google.com/search?q=coronavirus+cases";
-
+    private String globalCases, globalDeaths, globalRecovered;
     @FXML
     public void refreshData() throws IOException {
         String globalData = DataProvider.getGlobalData();
@@ -46,7 +43,6 @@ public class GlobalDataHandler {
         this.globalRecovered = formattedData.get(2);
     }
 
-
     private void openURL(String URL) {
         try {
             Desktop.getDesktop().browse(new URI(URL));
@@ -54,21 +50,18 @@ public class GlobalDataHandler {
             e1.printStackTrace();
         }
     }
-
     public void openNews() {
         openURL(COVID_NEWS);
     }
-
     public void openGeneralInfo() {
         openURL(GENERAL_COVID_INFO);
     }
-
     public void openCountryPage() throws IOException {
         Stage stage = (Stage) SEARCH.getScene().getWindow();
         stage.close();
         CountryDataHandler.openCountryDataPage();
     }
-    public void quit(){
+    public void quit() {
         System.exit(0);
     }
 }
