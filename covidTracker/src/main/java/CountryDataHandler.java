@@ -1,13 +1,16 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class CountryDataHandler {
@@ -21,13 +24,11 @@ public class CountryDataHandler {
 
 
     static void openCountryDataPage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("CountryData.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 700);
-        Stage stage = new Stage();
-        stage.setTitle("Covid-19");
-        stage.setScene(scene);
-        stage.show();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(CountryDataHandler.class.getResource("CountryData.fxml")));
+        Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(new Scene(root, 900, 700));
+        primaryStage.show();
     }
 
     public void displayCountryData() {
@@ -46,5 +47,8 @@ public class CountryDataHandler {
             noCountryInput.setText("no input");
             else noCountryInput.setText("Not a valid country");
         }
+    }
+    public void quit(){
+        System.exit(0);
     }
 }

@@ -68,4 +68,7 @@ public class GlobalDataHandler {
         stage.close();
         CountryDataHandler.openCountryDataPage();
     }
+    public void quit(){
+        System.exit(0);
+    }
 }
