@@ -41,8 +41,7 @@ public class CountryDataHandler {
             noCountryInput.setText("");
             IntStream.range(0, allTexts.size()).forEach(i -> allTexts.get(i).setText(attributes.get(i)));
         } catch (RuntimeException | IOException e) {
-            if (toFilter.isEmpty())
-                noCountryInput.setText("no input");
+            if (toFilter.isEmpty()) noCountryInput.setText("no input");
             else noCountryInput.setText("Not a valid country");
         }
     }

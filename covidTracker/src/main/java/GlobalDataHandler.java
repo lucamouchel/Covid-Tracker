@@ -9,57 +9,36 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class GlobalDataHandler {
+public final class GlobalDataHandler {
     private final String COVID_NEWS = "www.google.com/search?q=coronavirus+news";
     private final String GENERAL_COVID_INFO = "www.google.com/search?q=coronavirus+cases";
     @FXML
     private Text cases, deaths, recovered;
     @FXML
     private FontIcon SEARCH;
-    //as much as these values are ints,
-    //the numbers will be formatted as ###,###,###
-    private String globalCases, globalDeaths, globalRecovered;
     @FXML
     public void refreshData() throws IOException {
         String globalData = DataProvider.getGlobalData();
-        filterData(globalData);
-        cases.setText(this.globalCases);
-        deaths.setText(this.globalDeaths);
-        recovered.setText(this.globalRecovered);
-    }
-
-    /**
-     * Filters the data into only integers.
-     * These represent the number of cases, deaths and recovered.
-     *
-     * @param globalData String to filter
-     */
-    public void filterData(String globalData) {
         globalData = DataProvider.dataWithFilteredChars(globalData);
         List<String> formattedData = DataProvider.defineAttributes(globalData);
-        //we know the list contains only three elements, respectively cases, deaths and recovered
-        this.globalCases = formattedData.get(0);
-        this.globalDeaths = formattedData.get(1);
-        this.globalRecovered = formattedData.get(2);
+        cases.setText(formattedData.get(0));
+        deaths.setText(formattedData.get(1));
+        recovered.setText(formattedData.get(2));
     }
 
-    private void openURL(String URL) {
-        try {
+    private void openURL(String URL) throws IOException, URISyntaxException {
             Desktop.getDesktop().browse(new URI(URL));
-        } catch (IOException | URISyntaxException e1) {
-            e1.printStackTrace();
         }
-    }
-    public void openNews() {
+    public final void openNews() throws IOException, URISyntaxException {
         openURL(COVID_NEWS);
     }
-    public void openGeneralInfo() {
+    public final void openGeneralInfo() throws IOException, URISyntaxException {
         openURL(GENERAL_COVID_INFO);
     }
     public void openCountryPage() throws IOException {
+        CountryDataHandler.openCountryDataPage();
         Stage stage = (Stage) SEARCH.getScene().getWindow();
         stage.close();
-        CountryDataHandler.openCountryDataPage();
     }
     public void quit() {
         System.exit(0);
