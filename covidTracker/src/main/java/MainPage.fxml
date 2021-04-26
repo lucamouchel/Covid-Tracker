@@ -20,7 +20,7 @@
                 <Font name="Segoe UI Bold Italic" size="55.0" />
             </font>
         </Text>
-        <FontIcon iconColor="WHITE" iconLiteral="fa-globe" iconSize="60" layoutX="823.0" layoutY="302.0" selectionFill="#e41818" text="" wrappingWidth="62.5999755859375" />
+        <FontIcon fx:id="GLOBE" iconLiteral="fa-globe" iconSize="38" layoutX="473.0" layoutY="462.0" onMouseClicked="#openAllCountriesPage" selectionFill="#e41818" text="" wrappingWidth="62.5999755859375" />
         <Text fill="WHITE" layoutX="270.0" layoutY="639.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Covid-19-related news" wrappingWidth="234.919921875">
             <font>
                 <Font name="Arial Bold" size="22.0" />
@@ -31,7 +31,7 @@
                 <Font name="Segoe UI Black" size="24.0" />
             </font>
         </Text>
-        <Button layoutX="465.0" layoutY="241.0" mnemonicParsing="false" onAction="#refreshData" prefHeight="71.0" prefWidth="91.0" text="Refresh" />
+        <Button layoutX="465.0" layoutY="227.0" mnemonicParsing="false" onAction="#refreshData" prefHeight="71.0" prefWidth="91.0" text="Refresh" />
         <Button layoutX="270.0" layoutY="654.0" mnemonicParsing="false" onAction="#openNews" prefHeight="25.0" prefWidth="97.0" text="News" />
         <Text fill="WHITE" layoutX="637.0" layoutY="272.0" smooth="false" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="DEATHS:" textAlignment="CENTER" wrappingWidth="106.48046875">
             <font>
@@ -59,12 +59,17 @@
             </font>
         </Text>
         <Button layoutX="388.0" layoutY="654.0" mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="25.0" prefWidth="123.0" text="General Information" />
-        <FontIcon fx:id="SEARCH" iconLiteral="fa-search" iconSize="30" layoutX="491.0" layoutY="459.0" onMouseClicked="#openCountryPage" selectionEnd="1" />
-        <Text layoutX="319.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search individual country">
+        <FontIcon fx:id="SEARCH" iconLiteral="fa-search" iconSize="30" layoutX="248.0" layoutY="458.0" onMouseClicked="#openCountryPage" selectionEnd="1" />
+        <Text fill="WHITE" layoutX="77.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search individual country">
             <font>
                 <Font name="Segoe UI Black" size="13.0" />
             </font>
         </Text>
         <FontIcon iconColor="RED" iconLiteral="fa-times-circle" iconSize="60" layoutX="51.0" layoutY="665.0" onMouseClicked="#quit" />
+      <Text fill="WHITE" layoutX="348.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View all countries">
+         <font>
+            <Font name="Segoe UI Black" size="13.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

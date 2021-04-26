@@ -29,8 +29,6 @@ dependencies {
     compile 'net.sourceforge.htmlunit:htmlunit:2.49.1'
 
     compile group: 'com.jfoenix', name: 'jfoenix', version: '9.0.9'
-
-    compile 'com.gluonhq:charm:5.0.0-jdk9'
 }
 
 test {

@@ -2,13 +2,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.net.URL;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DataProvider {
+    public static List<Country> countryList = new ArrayList<>();
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://coronavirus-19-api.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -16,58 +15,68 @@ public class DataProvider {
 
     private static final CovidAPI covidAPI = retrofit.create(CovidAPI.class);
 
-    public static List<String> globalDataList = new ArrayList<>();
-    public static List<String> countryDataList = new ArrayList<>();
-
     public static String getGlobalData() throws IOException {
-        String globalData = Objects.requireNonNull(
-                covidAPI.getGlobalData().execute().body()).toString();
-        globalDataList.add(globalData);
-        return globalData;
+        return Objects.requireNonNull(covidAPI.getGlobalData().execute().body()).toString();
     }
 
     public static String getCountryData(String countryName) throws IOException {
-        String countryData = Objects.requireNonNull(
+        return Objects.requireNonNull(
                 covidAPI.getCountryData(countryName).execute().body()).toString();
-        countryDataList.add(countryData);
-        return countryData;
     }
 
-    /**
-     * Removing unnecessary characters so we can treat the data with
-     * only letters and integers.
-     *
-     * @param dataToFilter string to filter
-     * @return filtered string
-     */
-    public static String dataWithFilteredChars(String dataToFilter) {
-        StringBuilder filteredGlobalData = new StringBuilder();
-        dataToFilter.chars()
-                .filter(c -> Character.isDigit(c) || Character.isLetter(c))
-                .mapToObj(c -> (char) c)
-                .forEach(filteredGlobalData::append);
-        return filteredGlobalData.toString();
+    public static String countryDataOnGlobalScale() throws IOException {
+        URL url = new URL("https://coronavirus-19-api.herokuapp.com/countries");
+        Scanner scan = new Scanner(url.openStream());
+        StringBuilder sb = new StringBuilder();
+        while (scan.hasNext()) {
+            sb.append(scan.next());
+        }
+        return sb.toString();
     }
+
     /**
      * Defines the attributes cases, deaths and recovered.
      *
-     * @param dataToDefine string to extract attributes from
+     * @param dataToDefine string to filter and extract attributes from
      */
-    public static List<String> defineAttributes(String dataToDefine) {
-        for (char c : dataToDefine.toCharArray()) {
-            if (Character.isLetter(c)) {
-                dataToDefine = dataToDefine.replace(c, ' ');
-            }
-        }
-        //mapping the whole string into a list of integers
-        List<Integer> data = Arrays.stream(dataToDefine.split(" "))
+    public static List<String> defineAttributes(String dataToDefine) throws IOException {
+        String filtered = dataToDefine.replaceAll("[^0-9]", " ");
+        //mapping the whole string into a list of strings
+        return Arrays.stream(filtered.split(" "))
                 .filter(str -> !str.isEmpty())
-                .map(Integer::parseInt)
+                .mapToInt(Integer::parseInt)
+                .mapToObj(i -> String.format("%,d", i))
                 .collect(Collectors.toList());
+    }
 
-        //using the ints from the previous list and formatting it
-        List<String> formattedData = new ArrayList<>();
-        data.forEach(i -> formattedData.add(String.format("%,d", i)));
-        return formattedData;
+    public static void filterDataOnGlobalScale(String list) throws IOException {
+        String a = list.replaceAll("[;\",:{]", " ").replace("[", "");
+        List<String> individualCountries = Arrays.stream(a.split("}"))
+                .filter(str -> !str.isEmpty())
+                .collect(Collectors.toList());
+        //now we are working with strings such as : "country   USA   cases  32735704
+        // todayCases  0  deaths  585075  todayDeaths  0  recovered  25296047  active  6854582
+        // critical  9832  casesPerOneMillion  98431  deathsPerOneMillion  1759
+        // totalTests  437068081  testsPerOneMillion  1314196"
+        //so the indices we are interested in are always fixed, ie country is at index 1 etc
+        List<List<String>> separatedElements = new ArrayList<>();
+        for (String individualCountry : individualCountries) {
+            separatedElements.add((Arrays.stream(individualCountry.split(" "))
+                    .filter(s -> !s.isEmpty()))
+                    .collect(Collectors.toList()));
+        }
+        //now we have lists in lists, separating each useful element for each country,
+        //allowing to define a list for all the countries, cases etc ...
+        //index 1 -country, index 3 - cases, index 5 -today cases
+        //index 7 -deaths, index 9 today deaths, index 11 - recovered
+        //index 13 - active, index 15 - critical, index 17 casespermillion
+        //index 19 deaths per million, index 21 - total tests, index 23, total tests per million
+        for (int i = 0; i < separatedElements.size() - 1; i++) {
+            countryList.add(new Country(separatedElements.get(i).get(1),separatedElements.get(i).get(3),
+                    separatedElements.get(i).get(5),separatedElements.get(i).get(7),
+                    separatedElements.get(i).get(9), separatedElements.get(i).get(11),
+                    separatedElements.get(i).get(13), separatedElements.get(i).get(15), separatedElements.get(i).get(17),
+                    separatedElements.get(i).get(19), separatedElements.get(i).get(21), separatedElements.get(i).get(23)));
+        }
     }
 }

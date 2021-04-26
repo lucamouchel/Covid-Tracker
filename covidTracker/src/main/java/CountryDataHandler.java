@@ -33,13 +33,11 @@ public class CountryDataHandler {
         String toFilter = countrySelected.getText();
         try {
             toFilter = DataProvider.getCountryData(toFilter);
-            //filter the big boy of unnecessary characters
-            toFilter = DataProvider.dataWithFilteredChars(toFilter);
             List<Text> allTexts = List.of(cases, todaysCases, deaths, todaysDeaths, recovered,
                     active, critical, casesPerMillion, deathsPerMillion, totalTests, testsPerMillion);
             List<String> attributes = DataProvider.defineAttributes(toFilter);
-            noCountryInput.setText("");
             IntStream.range(0, allTexts.size()).forEach(i -> allTexts.get(i).setText(attributes.get(i)));
+            noCountryInput.setText("");
         } catch (RuntimeException | IOException e) {
             if (toFilter.isEmpty()) noCountryInput.setText("no input");
             else noCountryInput.setText("Not a valid country");
