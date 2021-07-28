@@ -1,9 +1,12 @@
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleListProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,8 +76,37 @@ public class AllCountriesHandler {
 
     private TreeTableColumn<Country, String> createColumn(String name, Country.Paramater param) {
         TreeTableColumn<Country, String> column = new TreeTableColumn<>(name);
-        column.setPrefWidth(100);
-        Country.setValueToColumn(column, param);
+        column.setPrefWidth(120);
+        setValueToColumn(column, param);
         return column;
+    }
+
+    private void setValueToColumn(TreeTableColumn<Country, String> column, Country.Paramater param) {
+        switch (param) {
+            case COUNTRY -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getName()));
+            case CASES -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getCases()));
+            case TODAYS_CASES -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getTodaysCases()));
+            case DEATHS -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getDeaths()));
+            case TODAYS_DEATHS -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getTodaysDeaths()));
+            case RECOVERED -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getRecovered().toString()));
+            case ACTIVE_CASES -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getActiveCases().toString()));
+            case CRITICAL_CASES -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getCriticalCases()));
+            case CASES_PER_MILLION -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getCasesPerMillion()));
+            case DEATHS_PER_MILLION -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getDeathsPerMillion()));
+            case TOTAL_TESTS -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getTotalTests()));
+            case TESTS_PER_MILLION -> column.setCellValueFactory((TreeTableColumn.CellDataFeatures<Country, String> p)
+                    -> new ReadOnlyStringWrapper(p.getValue().getValue().getTestsPerMillion()));
+        }
     }
 }
